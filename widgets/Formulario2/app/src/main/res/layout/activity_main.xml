@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/borde_textview"
+                android:text="@string/mi_perfil"
+                android:textAlignment="center"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/imperfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@android:drawable/ic_menu_camera" />
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/nombre"
+                android:inputType="text"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/apellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/apellidos"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/mail"
+                android:inputType="text" />
+
+            <RadioGroup
+                android:id="@+id/sexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp">
+
+                <RadioButton
+                    android:id="@+id/hombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hombre" />
+
+                <RadioButton
+                    android:id="@+id/mujer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mujer" />
+
+                <RadioButton
+                    android:id="@+id/otros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/otros" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/borde_textview"
+                android:gravity="center"
+                android:text="Pais"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/pais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/paises"
+                android:minHeight="48dp"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/borde_textview"
+                android:gravity="center"
+                android:text="@string/hobbies"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/lectura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lectura" />
+
+            <CheckBox
+                android:id="@+id/deporte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deporte" />
+
+            <CheckBox
+                android:id="@+id/musica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/musica" />
+
+            <CheckBox
+                android:id="@+id/arte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/arte" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/borde_textview"
+                android:gravity="center"
+                android:text="@string/nivel_de_satisfaccion"
+                android:textSize="20sp" />
+            <!--La logica luego,el seek empieza en 0-->
+
+            <SeekBar
+                android:id="@+id/seeksatisfaccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:max="9"
+                android:min="0"
+                android:minHeight="48dp" />
+
+            <TextView
+                android:id="@+id/txtsatisfaccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/borde_textview"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borde_textview"
+                    android:text="Boletin informativo" />
+
+                <Switch
+                    android:id="@+id/boletin"
+                    android:layout_width="69dp"
+                    android:layout_height="17dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/enviar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Enviar" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

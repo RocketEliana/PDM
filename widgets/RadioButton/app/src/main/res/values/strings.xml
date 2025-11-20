@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RadioButton</string>
+    <string name="elige_una_opcion">Elige una opcion</string>
+    <string name="dam">DAM</string>
+    <string name="daw">DAW</string>
+    <string name="asir">ASIR</string>
+    <string name="microredes">MICROREDES</string>
+    <string name="muestra_solucion">Muestra solucion</string>
+    <string name="has_seleccionado">Has seleccionado %1$s</string>
+    <string name="selecciona_una_opcion">Selecciona una opcion</string>
+</resources>

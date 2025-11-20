@@ -1,0 +1,20 @@
+ seekEdad.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(
+                p0: SeekBar?,
+                p1: Int,
+                p2: Boolean
+            ) {
+                val edad=p1
+                val edadtexto=p1.toString()
+                txtedad.text=edadtexto
+            }
+            override fun onStartTrackingTouch(p0: SeekBar) {
+                p0.alpha = 0.7f  // cambia un poco la opacidad mientras lo arrastras
+            }
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                val valor = p0?.progress ?: 0
+                val infoS = if (infoad.isChecked) "Se requiere info" else "No se requiere info"
+
+
+            }
+        })

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lista</string>
+    <string name="solucion">Solucion</string>
+    <string name="hola">Hola</string>
+    <string-array name="provincias">
+        <item>"Valladolid"</item>
+        <item>"Salamanca"</item>
+        <item>"Segovia"</item>
+    </string-array>
+</resources>

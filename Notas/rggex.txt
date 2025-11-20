@@ -1,0 +1,55 @@
+rggex
+url->^(https?:\/\/)?([\w\-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$
+mail->^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+dni->^\d{8}[A-HJ-NP-TV-Z]$
+movil->^(?:\+34|0034)?[6-7]\d{8}$
+📘 Desglose
+Parte	Significado
+^	Inicio de la cadena
+`(?:+34	0034)?`
+[6-7]	El primer dígito del número debe ser 6 o 7
+\d{8}	A continuación, exactamente 8 dígitos
+$	Fin de la cadena
+✅ Regex correcto para fijos
+^(?:\+34|0034)?[89]\d{8}$
+
+📘 Desglose
+Parte	Significado
+`^(?:+34	0034)?`
+[89]	El número debe empezar por 8 o 9
+\d{8}	Luego exactamente 8 dígitos más
+$	Fin de la cadena
+-----------------
+✅ Regex combinado (móvil o fijo)
+^(?:\+34|0034)?[ -]?(?:[6-7]\d{8}|[89]\d{8})$
+
+📘 Desglose
+Parte	Significado
+`^(?:+34	0034)?`
+[ -]?	Espacio o guion opcional después del prefijo
+`(?:[6-7]\d{8}	[89]\d{8})`
+$	Fin de la cadena
+val dni 
+fun esDNIValido(dni: String): Boolean {
+    // Regex para comprobar formato: 8 dígitos + letra
+    val regex = Regex("^\\d{8}[A-HJ-NP-TV-Z]\$", RegexOption.IGNORE_CASE)
+    if (!regex.matches(dni)) return false
+
+    // Letras válidas según el número
+    val letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+
+    // Número y letra
+    val numero = dni.substring(0, 8).toInt()
+    val letra = dni[8].uppercaseChar()
+
+    // Comprobar que la letra coincide
+    return letra == letras[numero % 23]
+}
+
+fun main() {
+    val dni1 = "12345678Z"
+    val dni2 = "12345678A"
+
+    println("$dni1 es válido? ${esDNIValido(dni1)}") // true
+    println("$dni2 es válido? ${esDNIValido(dni2)}") // false
+}

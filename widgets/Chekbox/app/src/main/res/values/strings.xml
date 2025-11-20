@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Chekbox</string>
+    <string name="selecciona_ciudades">Selecciona ciudades</string>
+    <string name="valladolid">Valladolid</string>
+    <string name="palencia">Palencia</string>
+    <string name="segovia">Segovia</string>
+    <string name="seleccionar">Seleccionar</string>
+</resources>

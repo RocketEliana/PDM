@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SaltaChooser</string>
+    <string name="introduce_url">Introduce url</string>
+    <string name="ingresar">Ingresar</string>
+</resources>

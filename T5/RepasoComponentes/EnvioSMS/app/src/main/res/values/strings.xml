@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EnvioSMS</string>
+    <string name="introduce_sms">Introduce sms</string>
+    <string name="telefono">Telefono</string>
+    <string name="button">Button</string>
+    <string name="enviar">Enviar</string>
+</resources>

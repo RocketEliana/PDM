@@ -1,0 +1,4 @@
+ val hobbiesSeleccionados = hobbies.map { findViewById<CheckBox>(it) }  // obtiene la referencia real
+            .filter { it.isChecked }                    // solo los marcados
+            .joinToString(", ") { it.text }             // convierte a string
+        val infoS = if (infoad.isChecked) "Se requiere info" else "No se requiere info"

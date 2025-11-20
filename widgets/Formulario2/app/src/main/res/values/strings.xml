@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Formulario2</string>
+    <string name="otros" translatable="false">Otros</string>
+    <string name="mujer" translatable="false">Mujer</string>
+    <string name="hombre" translatable="false">Hombre</string>
+    <string name="mail" translatable="false">Mail</string>
+    <string name="apellidos" translatable="false">Apellidos</string>
+    <string name="nombre" translatable="false">Nombre</string>
+    <string name="mi_perfil" translatable="false">Mi perfil</string>
+    <string name="hobbies" translatable="false">Hobbies</string>
+    <string name="lectura" translatable="false">Lectura</string>
+    <string name="deporte" translatable="false">Deporte</string>
+    <string name="musica" translatable="false">Musica</string>
+    <string name="arte" translatable="false">Arte</string>
+    <string name="nivel_de_satisfaccion" translatable="false">Nivel de Satisfaccion</string>
+    <string-array name="paises">
+        <item>España</item>
+        <item>Francia</item>
+        <item>Prtugal</item>
+    </string-array>
+    <string-array name="satisfaccion">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+
+</resources>

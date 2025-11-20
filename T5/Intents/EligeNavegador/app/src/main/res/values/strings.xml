@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EligeNavegador</string>
+    <string name="introduce_una_url">Introduce una Url</string>
+    <string name="ir">Ir</string>
+</resources>
