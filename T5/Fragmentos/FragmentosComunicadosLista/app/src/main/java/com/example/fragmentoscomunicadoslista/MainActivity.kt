@@ -1,6 +1,5 @@
 package com.example.fragmentoscomunicadoslista
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -13,8 +12,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val TAG = "MainActivity"
+    private var temaActual = "default" // Control del tema actual
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // APLICAR TEMA ANTES de setContentView
+        aplicarTema()
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -25,10 +28,8 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "Modo horizontal: $esModoHorizontal")
 
         if (esModoHorizontal) {
-            // ✅ MODO HORIZONTAL: Mostrar ambos fragments
             configurarModoHorizontal()
         } else {
-            // ✅ MODO VERTICAL: Mostrar solo FragmentoA inicialmente
             configurarModoVertical()
         }
     }
@@ -36,12 +37,10 @@ class MainActivity : AppCompatActivity() {
     private fun configurarModoHorizontal() {
         Log.d(TAG, "Configurando MODO HORIZONTAL")
 
-        // Cargar FragmentoA
         supportFragmentManager.beginTransaction()
             .replace(R.id.contenedorA, FragmentoA())
             .commit()
 
-        // Cargar FragmentoB vacío
         supportFragmentManager.beginTransaction()
             .replace(R.id.contenedorB, FragmentoB())
             .commit()
@@ -50,12 +49,10 @@ class MainActivity : AppCompatActivity() {
     private fun configurarModoVertical() {
         Log.d(TAG, "Configurando MODO VERTICAL")
 
-        // Cargar FragmentoA inicialmente
         supportFragmentManager.beginTransaction()
             .replace(R.id.contenedorPrincipal, FragmentoA())
             .commit()
 
-        // Escuchar cuando se seleccione un hobbit para mostrar FragmentoB
         supportFragmentManager.setFragmentResultListener("clave_hobbit", this) { _, bundle ->
             Log.d(TAG, "Navegando a FragmentoB en modo vertical")
 
@@ -65,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
             supportFragmentManager.beginTransaction()
                 .replace(R.id.contenedorPrincipal, fragmentB)
-                .addToBackStack("fragmento_b") // Permite volver atrás
+                .addToBackStack("fragmento_b")
                 .commit()
         }
     }
@@ -76,10 +73,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.opcion_negro -> binding.barra.setBackgroundColor(Color.BLACK)
-            R.id.opcion_pais -> binding.barra.setBackgroundColor(Color.RED)
+        return when (item.itemId) {
+            R.id.opcion_negro -> {
+                cambiarTema("negro")
+                true
+            }
+            R.id.opcion_pais -> {
+                cambiarTema("colores")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+    }
+
+    // MÉTODOS PARA CAMBIAR TEMAS
+    private fun aplicarTema() {
+        when (temaActual) {
+            "negro" -> setTheme(R.style.Theme_FragmentosComunicadosLista_Negro)
+            "colores" -> setTheme(R.style.Theme_FragmentosComunicadosLista_ColoresPaises)
+            else -> setTheme(R.style.Theme_FragmentosComunicadosLista)
+        }
+    }
+
+    private fun cambiarTema(nuevoTema: String) {
+        temaActual = nuevoTema
+        recreate() // Reinicia la actividad para aplicar el nuevo tema
     }
 }

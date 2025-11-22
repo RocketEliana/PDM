@@ -88,13 +88,13 @@ class FragmentoA : Fragment() {
         when (item.itemId) {
             R.id.opcion_habilitar -> {
                 hobbit.habilitado = true
-                // ✅ NOTIFICAR AL ADAPTADOR QUE LOS DATOS CAMBIARON
+                //NOTIFICAR AL ADAPTADOR QUE LOS DATOS CAMBIARON
                 adaptador.notifyDataSetChanged()
                 Toast.makeText(context, "Habilitado", Toast.LENGTH_SHORT).show()
             }
             R.id.opcion_deshabilitar -> {
                 hobbit.habilitado = false
-                // ✅ NOTIFICAR AL ADAPTADOR QUE LOS DATOS CAMBIARON
+                // NOTIFICAR AL ADAPTADOR QUE LOS DATOS CAMBIARON
                 adaptador.notifyDataSetChanged()
                 Toast.makeText(context, "Deshabilitado", Toast.LENGTH_SHORT).show()
             }
