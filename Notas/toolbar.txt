@@ -1,0 +1,51 @@
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+
+    // 1. PRIMERO: Creamos el binding (Construimos la casa)
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    
+    // 2. SEGUNDO: Le decimos a la actividad que use esta vista
+    setContentView(binding.root)
+
+    // 3. TERCERO: Ahora ya podemos tocar los elementos (el Toolbar ya existe)
+    setSupportActionBar(binding.toolbar)
+    supportActionBar?.title = "Lista de Unicornios"
+
+    // 4. CUARTO: La lógica del fragmento
+    if (savedInstanceState == null) {
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.fragmentContainerView.id, FragmentoSpinner())
+            .commit()
+    }
+
+    // 5. QUINTO: Ajustes de pantalla completa
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+        insets
+    }
+}----------
+__________>>>>>>>>>>>>>>>>>>>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FragmentConSpinnerPersonalizado" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.FragmentConSpinnerPersonalizado" parent="Base.Theme.FragmentConSpinnerPersonalizado" />
+</resources>
+______________>>>>>>>>>>>>>>>>>>
+ <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Mis Unicornios"
+        app:titleTextColor="@android:color/white"/>
