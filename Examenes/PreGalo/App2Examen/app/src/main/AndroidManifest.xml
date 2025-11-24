@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.App2Examen">
+        <activity
+            android:name=".ActivityRegistrer"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <!-- Tu actividad puede ver o mostrar algo que le pase otra app, como una URL o un archivo. -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- La actividad puede ser llamada por intentos explícitos o implícitos desde el sistema o desde otra app. -->
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Permite que otras aplicaciones (como navegadores o apps externas) lancen tu actividad para mostrar contenido web o enlaces. -->
+                <data
+                    android:host="abrir"
+                    android:scheme="examen" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

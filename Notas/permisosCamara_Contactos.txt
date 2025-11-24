@@ -1,4 +1,8 @@
 LOCALIZACION
+
+Manifest:<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+Segundo plano: <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
 package com.example.localizacion
 
 import android.Manifest
@@ -16,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted)
-            Toast.makeText(this, "Permiso de localización concedido ✅", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de localización concedido ", Toast.LENGTH_SHORT).show()
         else
-            Toast.makeText(this, "Permiso de localización denegado ❌", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de localización denegado ", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +46,8 @@ class MainActivity : AppCompatActivity() {
 }
 ------------------------------------------------------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 microfono 
-package com.example.microfono
-
+MANIFEST:
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -59,9 +63,9 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted)
-            Toast.makeText(this, "Permiso de micrófono concedido ✅", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de micrófono concedido ", Toast.LENGTH_SHORT).show()
         else
-            Toast.makeText(this, "Permiso de micrófono denegado ❌", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de micrófono denegado ", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +89,27 @@ class MainActivity : AppCompatActivity() {
 }
 ---------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ALMACENAMIENTO
+ Para Android 12 o inferior (tu caso si usas READ_EXTERNAL_STORAGE):
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+ Para Android 13 (API 33) y superior → se separó en 3 permisos nuevos:
+
+Si quieres IMÁGENES:
+
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+
+Si quieres VÍDEOS:
+
+<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+
+Si quieres AUDIO:
+
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+package com.example.microfono
+
+
 package com.example.almacenamiento
 
 import android.Manifest
@@ -102,9 +127,9 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted)
-            Toast.makeText(this, "Permiso de almacenamiento concedido ✅", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de almacenamiento concedido ", Toast.LENGTH_SHORT).show()
         else
-            Toast.makeText(this, "Permiso de almacenamiento denegado ❌", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de almacenamiento denegado ", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,6 +153,13 @@ class MainActivity : AppCompatActivity() {
 }
 __________________________________________________________>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 CONTACTOS
+<uses-permission android:name="android.permission.READ_CONTACTS" />
+Si quieres ESCRIBIR contactos:
+
+xml
+Copiar código
+<uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
 package com.example.contactos
 
 import android.Manifest
@@ -145,9 +177,9 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted)
-            Toast.makeText(this, "Permiso de contactos concedido ✅", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de contactos concedido ", Toast.LENGTH_SHORT).show()
         else
-            Toast.makeText(this, "Permiso de contactos denegado ❌", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permiso de contactos denegado ", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -171,6 +203,8 @@ class MainActivity : AppCompatActivity() {
 }
 ______________________________________________________________>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 CAMARA
+<uses-permission android:name="android.permission.CAMERA" />
+
 package com.example.camara
 
 import android.content.pm.PackageManager
@@ -238,6 +272,67 @@ class MainActivity : AppCompatActivity() {
                 miLauncherDePermiso.launch(Manifest.permission.CAMERA)
                
             }
+        }
+    }
+}
+--------------------------->>>>>>>>>>>>>>>>>>>>>>>>>
+BLoothoot
+ Android 12+:
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
+ Android < 12:
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+
+class MainActivity : AppCompatActivity() {
+
+    private val launcherBluetooth = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted)
+            Toast.makeText(this, "Permiso de Bluetooth concedido ", Toast.LENGTH_SHORT).show()
+        else
+            Toast.makeText(this, "Permiso de Bluetooth denegado ", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val boton = findViewById<Button>(R.id.boton)
+        boton.setOnClickListener {
+            solicitarPermisoBluetooth()
+        }
+    }
+
+    private fun solicitarPermisoBluetooth() {
+        // Para Android 12+
+        val permiso = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
+                Manifest.permission.BLUETOOTH_CONNECT
+
+            // Para Android 6–11
+            else ->
+                Manifest.permission.ACCESS_FINE_LOCATION
+        }
+
+        when {
+            ContextCompat.checkSelfPermission(this, permiso) == PackageManager.PERMISSION_GRANTED ->
+                Toast.makeText(this, "Permiso ya concedido", Toast.LENGTH_SHORT).show()
+
+            else ->
+                launcherBluetooth.launch(permiso)
         }
     }
 }
