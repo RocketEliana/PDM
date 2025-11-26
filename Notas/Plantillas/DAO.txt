@@ -1,0 +1,70 @@
+package com.example.lugares
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface LugarDao {
+
+    // ==========================================
+    //  SECCIÓN DE ESCRITURA (CUD - Create, Update, Delete)
+    //  Usamos 'suspend' para que se ejecuten en segundo plano
+    // ==========================================
+
+    // R8: Añadir (Si el ID ya existe, lo reemplaza)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLugar(lugar: Lugar)
+
+    // R7: Editar (Actualiza los campos del lugar que coincida con el ID)
+    @Update
+    suspend fun updateLugar(lugar: Lugar)
+
+    // R9: Borrar
+    @Delete
+    suspend fun deleteLugar(lugar: Lugar)
+    
+    // Extra: Borrar todo (útil para limpiar la app en desarrollo)
+    @Query("DELETE FROM tabla_lugares")
+    suspend fun deleteAll()
+
+
+    // ==========================================
+    //  SECCIÓN DE LECTURA (R - Read)
+    //  Usamos 'Flow' para listas reactivas (actualización automática)
+    // ==========================================
+
+    // R3: Obtener detalle de un solo lugar
+    @Query("SELECT * FROM tabla_lugares WHERE id = :id")
+    suspend fun getLugarById(id: Long): Lugar?
+
+    // R10.3: CONSULTAS DE ORDENACIÓN
+    
+    // Orden A-Z
+    @Query("SELECT * FROM tabla_lugares ORDER BY nombre ASC")
+    fun getAllLugaresAlfabetico(): Flow<List<Lugar>>
+
+    // Orden Z-A
+    @Query("SELECT * FROM tabla_lugares ORDER BY nombre DESC")
+    fun getAllLugaresAlfabeticoInverso(): Flow<List<Lugar>>
+
+    // Más recientes primero (Fecha Descendente)
+    @Query("SELECT * FROM tabla_lugares ORDER BY fechaHora DESC")
+    fun getAllLugaresRecientes(): Flow<List<Lugar>>
+
+    // Más antiguos primero (Fecha Ascendente)
+    @Query("SELECT * FROM tabla_lugares ORDER BY fechaHora ASC")
+    fun getAllLugaresAntiguos(): Flow<List<Lugar>>
+}
+
+
+3 Conceptos clave de esta plantilla:
+suspend: Se usa en las operaciones que tardan un poco (guardar/borrar). Obliga a Android a hacerlo fuera del hilo principal para que la app no se congele.
+
+Flow<List<Lugar>>: Es una "tubería viva". Si insertas un lugar nuevo, todas las pantallas que estén "observando" este Flow se actualizarán solas al instante.
+
+@Query: Aquí escribes SQL estándar. Si cambias el nombre de tu tabla en la entidad (@Entity(tableName = "...")), recuerda cambiarlo aquí también.

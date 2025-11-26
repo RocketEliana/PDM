@@ -1,0 +1,84 @@
+package com.example.contactos
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(entities=[Contacto::class],version=1)
+
+abstract class AppDataBase : RoomDatabase(){
+    abstract fun ContactoDAO() : ContactoDAO
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDataBase? = null
+
+        fun getDataBase(context: Context): AppDataBase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDataBase::class.java,
+                    "contactos_db"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
+        }
+
+
+    }
+
+}
+/*Explicación rápida
+
+@Volatile → asegura que si varias hebras acceden a INSTANCE, vean siempre la versión más reciente.
+
+synchronized(this) → evita que dos hilos creen la base de datos a la vez.
+
+Room.databaseBuilder(...) → crea la base con:
+
+contexto de aplicación (no activity),
+
+la clase AppDataBase::class.java,
+
+el nombre "contactos_db".*/
+
+
+DOS TABLAS:
+package com.example.lugares
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+// 1. AÑADIR LA CLASE AL ARRAY DE ENTITIES
+// Fíjate en la coma: [Lugar::class, Usuario::class]
+// 2. SUBIR LA VERSIÓN (Si ya tenías la app instalada, debes subir a 2)
+@Database(entities = [Lugar::class, Usuario::class], version = 2, exportSchema = false)
+abstract class AppDataBase : RoomDatabase() {
+
+    // 3. AÑADIR EL METODO ABSTRACTO PARA EL NUEVO DAO
+    abstract fun lugarDao(): LugarDao
+    abstract fun usuarioDao(): UsuarioDao // <--- Nuevo DAO
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDataBase? = null
+
+        fun getDataBase(context: Context): AppDataBase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDataBase::class.java,
+                    "lugares_db"
+                )
+                .fallbackToDestructiveMigration() // Borra y recrea si cambia la versión
+                .build()
+                
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}

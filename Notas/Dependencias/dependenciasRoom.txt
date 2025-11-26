@@ -1,0 +1,35 @@
+[versions]
+# ... tus versiones actuales ...
+room = "2.6.1"
+ksp = "2.0.21-1.0.27" # Esta versión debe coincidir con tu Kotlin 2.0.21
+
+[libraries]
+# ... tus librerías actuales ...
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
+[plugins]
+# ... tus plugins actuales ...
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+------------------>>>>>>>>>>>>>>>>>>>>>>>
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp) // <--- AÑADE ESTO (Plugin KSP)
+}
+
+android {
+    // ... tu configuración android (namespace, sdk, etc) se queda igual ...
+}
+
+dependencies {
+    // ... tus dependencias actuales (core, appcompat, etc) ...
+    implementation(libs.androidx.core.ktx)
+    // ... etc ...
+
+    // --- AÑADE ESTO (Room) ---
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler) // <--- Fíjate que usa 'ksp', no 'implementation'
+}
